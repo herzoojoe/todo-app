@@ -49,8 +49,12 @@ function render() {
 
     const text = document.createElement("span");
     text.className = "todo-text";
-    text.textContent = todo.text;
     text.addEventListener("dblclick", () => startEdit(li, todo));
+
+    const textInner = document.createElement("span");
+    textInner.className = "todo-text-inner";
+    textInner.textContent = todo.text;
+    text.appendChild(textInner);
 
     const deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-btn";
@@ -87,9 +91,20 @@ function toggleComplete(id) {
 }
 
 function deleteTodo(id) {
-  todos = todos.filter((t) => t.id !== id);
-  saveTodos();
-  render();
+  const li = list.querySelector(`[data-id="${id}"]`);
+  const removeNow = () => {
+    todos = todos.filter((t) => t.id !== id);
+    saveTodos();
+    render();
+  };
+
+  if (!li) {
+    removeNow();
+    return;
+  }
+
+  li.classList.add("removing");
+  li.addEventListener("transitionend", removeNow, { once: true });
 }
 
 function clearCompleted() {

@@ -6,6 +6,17 @@ const list = document.getElementById("todo-list");
 const countLabel = document.getElementById("todo-count");
 const filterButtons = document.querySelectorAll(".filter-btn");
 const clearCompletedBtn = document.getElementById("clear-completed-btn");
+const todayDateLabel = document.getElementById("today-date");
+
+function renderTodayDate() {
+  const weekdays = ["일", "월", "화", "수", "목", "금", "토"];
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const weekday = weekdays[now.getDay()];
+  todayDateLabel.textContent = `${year}-${month}-${day} ${weekday}요일`;
+}
 
 let todos = loadTodos();
 let currentFilter = "all";
@@ -157,4 +168,5 @@ clearCompletedBtn.addEventListener("click", () => {
   }
 });
 
+renderTodayDate();
 render();

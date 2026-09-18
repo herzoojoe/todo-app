@@ -28,6 +28,10 @@ h1 {
   text-align: center;
 }
 
+.today-date {
+  color: #4a7dfc;
+}
+
 .todo-form {
   display: flex;
   gap: 8px;
